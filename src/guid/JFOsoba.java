@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 import sistemskeoperacije.Brisanje;
+import sistemskeoperacije.Insertovanje;
 import sistemskeoperacije.PretraziSve;
 
 public class JFOsoba extends javax.swing.JFrame {
@@ -56,7 +57,12 @@ public class JFOsoba extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jbtnBrisanjeOsobe = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ButtonForAdd = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        ForUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,10 +101,18 @@ public class JFOsoba extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Add");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        ButtonForAdd.setText("Add");
+        ButtonForAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                ButtonForAddActionPerformed(evt);
+            }
+        });
+
+        ForUpdate.setText("Update");
+        ForUpdate.setActionCommand("UpdateComand");
+        ForUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ForUpdateActionPerformed(evt);
             }
         });
 
@@ -107,32 +121,49 @@ public class JFOsoba extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(ButtonForAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbtnBrisanjeOsobe)
-                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jbtnBrisanjeOsobe)
+                .addGap(41, 41, 41)
+                .addComponent(jButton1)
+                .addGap(56, 56, 56)
+                .addComponent(ForUpdate)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonForAdd)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbtnBrisanjeOsobe)
-                .addGap(46, 46, 46)
-                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(58, 58, 58))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnBrisanjeOsobe)
+                    .addComponent(jButton1)
+                    .addComponent(ForUpdate))
+                .addGap(93, 93, 93))
         );
 
         pack();
@@ -142,9 +173,20 @@ public class JFOsoba extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
- //DefaultTableModel model = (DefaultTableModel) tb1Product.getModel();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void ButtonForAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonForAddActionPerformed
+ 
+        int i = jTable1.getSelectedRow();
+        TableModel model = jTable1.getModel();
+        jTextField1.setText((String) model.getValueAt(i, 1));
+        jTextField2.setText((String) model.getValueAt(i, 2));
+        jTextField3.setText((String) model.getValueAt(i, 3));
+        jTextField4.setText((String) model.getValueAt(i,4));
+                
+     
+       
+    
+
+    }//GEN-LAST:event_ButtonForAddActionPerformed
 
     private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
         
@@ -163,6 +205,10 @@ public class JFOsoba extends javax.swing.JFrame {
             Logger.getLogger(JFOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBrisanjeOsobeActionPerformed
+
+    private void ForUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ForUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ForUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,10 +246,15 @@ public class JFOsoba extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonForAdd;
+    private javax.swing.JButton ForUpdate;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton jbtnBrisanjeOsobe;
     // End of variables declaration//GEN-END:variables
 }
