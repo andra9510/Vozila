@@ -7,20 +7,12 @@ package guid;
 
 import Domain.Osoba;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
 import sistemskeoperacije.Brisanje;
+import sistemskeoperacije.Insertovanje;
 import sistemskeoperacije.PretraziSve;
 
 public class JFOsoba extends javax.swing.JFrame {
@@ -57,6 +49,14 @@ public class JFOsoba extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jbtnBrisanjeOsobe = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        lblId = new javax.swing.JLabel();
+        lblIme = new javax.swing.JLabel();
+        lblPrezime = new javax.swing.JLabel();
+        lblGodine = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        txtIme = new javax.swing.JTextField();
+        txtPrezime = new javax.swing.JTextField();
+        txtGodine = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,38 +102,95 @@ public class JFOsoba extends javax.swing.JFrame {
             }
         });
 
+        lblId.setText("ID");
+
+        lblIme.setText("Ime");
+
+        lblPrezime.setText("Prezime");
+
+        lblGodine.setText("Godine");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbtnBrisanjeOsobe)
-                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jbtnBrisanjeOsobe)
+                                .addGap(22, 22, 22))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblPrezime)
+                                            .addComponent(lblGodine)
+                                            .addComponent(lblIme))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblId)
+                                        .addGap(44, 44, 44)
+                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 15, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 25, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbtnBrisanjeOsobe)
-                .addGap(46, 46, 46)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(58, 58, 58))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtnBrisanjeOsobe)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblId)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIme)
+                            .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblPrezime)
+                            .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblGodine)
+                            .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
+                .addContainerGap())
         );
+
+        lblIme.getAccessibleContext().setAccessibleName("Ime");
+        lblPrezime.getAccessibleContext().setAccessibleName("Prezime");
+        lblGodine.getAccessibleContext().setAccessibleName("Godine");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,7 +200,24 @@ public class JFOsoba extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
- //DefaultTableModel model = (DefaultTableModel) tb1Product.getModel();
+        Osoba osobaNew = new Osoba();
+        osobaNew.setId(Integer.parseInt(txtId.getText()));
+        osobaNew.setName(txtIme.getText());
+        osobaNew.setName(txtPrezime.getText());
+        osobaNew.setDatumRodjenja(Integer.parseInt(txtGodine.getText()));
+        Insertovanje insertSO = new Insertovanje();
+        try {
+            if(insertSO.insert(osobaNew)){
+                setTableData();
+                txtId.setText(null);
+                txtIme.setText(null);
+                txtPrezime.setText(null);
+                txtGodine.setText(null);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JFOsoba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+;
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
@@ -205,5 +279,13 @@ public class JFOsoba extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtnBrisanjeOsobe;
+    private javax.swing.JLabel lblGodine;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblIme;
+    private javax.swing.JLabel lblPrezime;
+    private javax.swing.JTextField txtGodine;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIme;
+    private javax.swing.JTextField txtPrezime;
     // End of variables declaration//GEN-END:variables
 }
