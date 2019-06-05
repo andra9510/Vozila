@@ -192,29 +192,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnBrisanjeOsobeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="ButtonForAdd">
+    <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonForAddActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
-    </Component>
-    <Component class="javax.swing.JButton" name="ForUpdate">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Update"/>
-        <Property name="actionCommand" type="java.lang.String" value="UpdateComand"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ForUpdateActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblId">
