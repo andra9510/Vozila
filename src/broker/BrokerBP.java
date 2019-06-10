@@ -14,7 +14,9 @@ public class BrokerBP {
    
     public static void connn() {
         try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //con=DriverManager.getConnection("jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=dbBaza1;username=sa;password=WindoWs2008;");
+            Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://localhost/baza1", "root", "marea2002");
             st=con.createStatement();
         }

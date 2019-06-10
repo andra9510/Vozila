@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import sistemskeoperacije.Brisanje;
 import sistemskeoperacije.Insertovanje;
 import sistemskeoperacije.PretraziSve;
+import sistemskeoperacije.Update;
 
 public class JFOsoba extends javax.swing.JFrame {
 
@@ -28,8 +29,7 @@ public class JFOsoba extends javax.swing.JFrame {
   
     private void setTableData(){
      try{
-           // BrokerBP.connn();
-           // ResultSet rs = BrokerBP.st.executeQuery("Select * from person");
+   
           List<Osoba> listaOsoba = new PretraziSve().GetAllOsoba(); 
           OsobaTableModel osobaTableModel = new OsobaTableModel(listaOsoba);     
           jTable1.setModel(osobaTableModel);
@@ -46,9 +46,9 @@ public class JFOsoba extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jbtnClearListOsoba = new javax.swing.JButton();
         jbtnBrisanjeOsobe = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jbtnAddOsoba = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
         lblIme = new javax.swing.JLabel();
         lblPrezime = new javax.swing.JLabel();
@@ -57,6 +57,8 @@ public class JFOsoba extends javax.swing.JFrame {
         txtIme = new javax.swing.JTextField();
         txtPrezime = new javax.swing.JTextField();
         txtGodine = new javax.swing.JTextField();
+        jbtnUpdateOsoba = new javax.swing.JButton();
+        jbtnClearOsobaFields = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +76,11 @@ public class JFOsoba extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
         jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jTable1ComponentShown(evt);
@@ -81,10 +88,10 @@ public class JFOsoba extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Cela lista");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnClearListOsoba.setText("Cela lista");
+        jbtnClearListOsoba.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnClearListOsobaActionPerformed(evt);
             }
         });
 
@@ -95,10 +102,10 @@ public class JFOsoba extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Add");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbtnAddOsoba.setText("Add");
+        jbtnAddOsoba.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbtnAddOsobaActionPerformed(evt);
             }
         });
 
@@ -109,6 +116,20 @@ public class JFOsoba extends javax.swing.JFrame {
         lblPrezime.setText("Prezime");
 
         lblGodine.setText("Godine");
+
+        jbtnUpdateOsoba.setText("Update");
+        jbtnUpdateOsoba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnUpdateOsobaActionPerformed(evt);
+            }
+        });
+
+        jbtnClearOsobaFields.setText("Clear Fileds");
+        jbtnClearOsobaFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnClearOsobaFieldsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,9 +145,9 @@ public class JFOsoba extends javax.swing.JFrame {
                                 .addGap(22, 22, 22))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton1)
+                                .addComponent(jbtnClearListOsoba)
                                 .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,12 +168,16 @@ public class JFOsoba extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblId)
                                         .addGap(44, 44, 44)
-                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbtnClearOsobaFields))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 15, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addComponent(jbtnUpdateOsoba)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtnAddOsoba)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,15 +188,16 @@ public class JFOsoba extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbtnBrisanjeOsobe)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jbtnClearListOsoba)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblId)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnClearOsobaFields))
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblIme)
                             .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,42 +210,48 @@ public class JFOsoba extends javax.swing.JFrame {
                             .addComponent(lblGodine)
                             .addComponent(txtGodine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbtnAddOsoba)
+                            .addComponent(jbtnUpdateOsoba))))
                 .addContainerGap())
         );
-
-        lblIme.getAccessibleContext().setAccessibleName("Ime");
-        lblPrezime.getAccessibleContext().setAccessibleName("Prezime");
-        lblGodine.getAccessibleContext().setAccessibleName("Godine");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtnClearListOsobaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnClearListOsobaActionPerformed
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtnClearListOsobaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Osoba osobaNew = new Osoba();
-        osobaNew.setId(Integer.parseInt(txtId.getText()));
-        osobaNew.setName(txtIme.getText());
-        osobaNew.setName(txtPrezime.getText());
-        osobaNew.setDatumRodjenja(Integer.parseInt(txtGodine.getText()));
+    private void jbtnAddOsobaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddOsobaActionPerformed
+
         Insertovanje insertSO = new Insertovanje();
         try {
-            if(insertSO.insert(osobaNew)){
+            if(insertSO.insert(getOsobaFromForm())){
                 setTableData();
-                txtId.setText(null);
-                txtIme.setText(null);
-                txtPrezime.setText(null);
-                txtGodine.setText(null);
+                ClearFieldsOsoba();
             }
         } catch (SQLException ex) {
             Logger.getLogger(JFOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
-;
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbtnAddOsobaActionPerformed
 
+    private void ClearFieldsOsoba(){
+                txtId.setText(null);
+                txtIme.setText(null);
+                txtPrezime.setText(null);
+                txtGodine.setText(null);
+    }
+    
+    private Osoba getOsobaFromForm(){
+        Osoba osobaFromForm = new Osoba();
+        osobaFromForm.setId(Integer.parseInt(txtId.getText()));
+        osobaFromForm.setName(txtIme.getText());
+        osobaFromForm.setPrezime(txtPrezime.getText());
+        osobaFromForm.setDatumRodjenja(Integer.parseInt(txtGodine.getText()));
+        return osobaFromForm;
+    }
+    
     private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
         
     }//GEN-LAST:event_jTable1ComponentShown
@@ -237,6 +269,30 @@ public class JFOsoba extends javax.swing.JFrame {
             Logger.getLogger(JFOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBrisanjeOsobeActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+        int rowSelected = jTable1.getSelectedRow();
+        txtId.setText( jTable1.getModel().getValueAt(rowSelected, 0).toString());
+        txtIme.setText( jTable1.getModel().getValueAt(rowSelected, 1).toString());
+        txtPrezime.setText( jTable1.getModel().getValueAt(rowSelected, 2).toString());
+        txtGodine.setText( jTable1.getModel().getValueAt(rowSelected, 3).toString());
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void jbtnClearOsobaFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnClearOsobaFieldsActionPerformed
+        ClearFieldsOsoba();
+    }//GEN-LAST:event_jbtnClearOsobaFieldsActionPerformed
+
+    private void jbtnUpdateOsobaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateOsobaActionPerformed
+        Update updateSO = new Update();
+        try {
+            if(updateSO.update(getOsobaFromForm())){
+                setTableData();
+                //ClearFieldsOsoba();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JFOsoba.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtnUpdateOsobaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,11 +330,13 @@ public class JFOsoba extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbtnAddOsoba;
     private javax.swing.JButton jbtnBrisanjeOsobe;
+    private javax.swing.JButton jbtnClearListOsoba;
+    private javax.swing.JButton jbtnClearOsobaFields;
+    private javax.swing.JButton jbtnUpdateOsoba;
     private javax.swing.JLabel lblGodine;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblIme;
