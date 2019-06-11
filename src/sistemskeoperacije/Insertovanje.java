@@ -11,7 +11,7 @@ public class Insertovanje {
    
     public boolean insert(Osoba o) throws SQLException{
         Connection conn = BrokerBP.con;
-        PreparedStatement st = conn.prepareStatement("insert into person (Id,Name,Prezime,DatumRodjenja) values (?,?,?,?)", PreparedStatement.NO_GENERATED_KEYS);
+        PreparedStatement st = conn.prepareStatement("insert into person (id,firstname,lastname,age) values (?,?,?,?)", PreparedStatement.NO_GENERATED_KEYS);
         st.setInt(1, o.getId());
         st.setString(2, o.getName());
         st.setString(3, o.getPrezime());

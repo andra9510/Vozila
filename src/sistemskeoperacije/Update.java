@@ -13,10 +13,10 @@ public class Update {
      Connection conn = BrokerBP.con;
         PreparedStatement st = conn.prepareStatement("update person "
                 + "SET "
-                + "Name=?,"
-                + "Prezime=?,"
-                + "DatumRodjenja=? "
-                + "WHERE Id =?", PreparedStatement.NO_GENERATED_KEYS);        
+                + "firstname=?,"
+                + "lastname=?,"
+                + "age=? "
+                + "WHERE id =?", PreparedStatement.NO_GENERATED_KEYS);        
         st.setString(1, o.getName());
         st.setString(2, o.getPrezime());
         st.setInt(3, o.getDatumRodjenja());
