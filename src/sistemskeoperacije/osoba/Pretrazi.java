@@ -1,5 +1,5 @@
 
-package sistemskeoperacije;
+package sistemskeoperacije.osoba;
 
 public class Pretrazi {
     

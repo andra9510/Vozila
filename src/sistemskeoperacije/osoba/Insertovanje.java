@@ -1,5 +1,5 @@
 
-package sistemskeoperacije;
+package sistemskeoperacije.osoba;
 
 import Domain.Osoba;
 import broker.BrokerBP;

@@ -8,6 +8,7 @@ public class Osoba {
    int datumRodjenja;
    int id;
    String name;
+   Mesto mesto;
 
     public Osoba() {
     }
@@ -45,5 +46,14 @@ public class Osoba {
         this.id = id;
     }
 
+    public Mesto getMesto() {
+        return mesto;
+    }
+
+    public void setMesto(Mesto mesto) {
+        this.mesto = mesto;
+    }
+    
+    
    
 }

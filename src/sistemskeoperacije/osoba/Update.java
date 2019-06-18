@@ -1,4 +1,4 @@
-package sistemskeoperacije;
+package sistemskeoperacije.osoba;
 
 import Domain.Osoba;
 import broker.BrokerBP;
@@ -11,7 +11,8 @@ public class Update {
     public boolean update(Osoba o) throws SQLException{
         
      Connection conn = BrokerBP.con;
-        PreparedStatement st = conn.prepareStatement("update person "
+        PreparedStatement st = conn.prepareStatement(
+                 "update person "
                 + "SET "
                 + "firstname=?,"
                 + "lastname=?,"

@@ -2,17 +2,17 @@
 package aplikacijaosoba;
 
 import Domain.Osoba;
-import guid.JFOsoba;
+import guid.JFramelMain;
 import java.util.List;
-import sistemskeoperacije.PretraziSve;
+import sistemskeoperacije.osoba.PretraziSve;
 
 public class AplikacijaOsoba {
 
     public static void main(String[] args) {
-        //JFOsoba jfosoba= new JFOsoba();
+        //JFOsoba jfosoba= new JFramelMain();
         //jfosoba.setVisible(true);
         List<Osoba> listaOsoba = new PretraziSve().GetAllOsoba();
-       JFOsoba f = new JFOsoba();
+       JFramelMain f = new JFramelMain();
        f.setVisible(true);
     }
     
