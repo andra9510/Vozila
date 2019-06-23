@@ -23,7 +23,7 @@ public class MestoService {
         try {
             BrokerBP.connn();
             Statement st = BrokerBP.st;
-            List<Mesto> result = new ArrayList<Mesto>();//lista je interfejs
+            List<Mesto> result = new ArrayList<Mesto>();
             ResultSet res = st.executeQuery("select * from mesto");
             while (res.next()) {
                 Mesto mesto = new Mesto();
