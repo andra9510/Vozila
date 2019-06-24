@@ -5,11 +5,18 @@
  */
 package guid;
 
+import Domain.Mesto;
 import Domain.Osoba;
+import broker.BrokerBP;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import sistemskeoperacije.mesto.MestoService;
 import sistemskeoperacije.osoba.Brisanje;
 import sistemskeoperacije.osoba.Insertovanje;
 import sistemskeoperacije.osoba.PretraziSve;
@@ -20,6 +27,7 @@ public class JPanelOsoba extends javax.swing.JPanel {
     public JPanelOsoba() {
         initComponents();
         setTableData();
+        setUpdateCombo();
     }
 
   
@@ -117,7 +125,11 @@ public class JPanelOsoba extends javax.swing.JPanel {
 
         jlblMesto.setText("Mesto");
 
-        jcomboBoxMesto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcomboBoxMesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcomboBoxMestoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelOsobaLayout = new javax.swing.GroupLayout(jPanelOsoba);
         jPanelOsoba.setLayout(jPanelOsobaLayout);
@@ -128,7 +140,7 @@ public class JPanelOsoba extends javax.swing.JPanel {
                 .addComponent(jlblMesto)
                 .addGap(30, 30, 30)
                 .addComponent(jcomboBoxMesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
             .addGroup(jPanelOsobaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelOsobaLayout.createSequentialGroup()
                     .addContainerGap()
@@ -289,6 +301,11 @@ public class JPanelOsoba extends javax.swing.JPanel {
         ClearFieldsOsoba();
     }//GEN-LAST:event_jbtnClearOsobaFieldsActionPerformed
 
+    private void jcomboBoxMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcomboBoxMestoActionPerformed
+    
+   
+    }//GEN-LAST:event_jcomboBoxMestoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Panel jPanelOsoba;
@@ -346,5 +363,27 @@ private void ClearFieldsOsoba(){
         catch(Exception e){
             System.out.println(e);
         }
-    } 
-}
+   
+     }
+      private void setUpdateCombo(){
+           
+        try {
+            BrokerBP.connn();
+            Statement st = BrokerBP.st;
+            List<Mesto> result = new ArrayList<Mesto>();
+            ResultSet res = st.executeQuery("select * from mesto");
+            while (res.next()) {
+               jcomboBoxMesto.addItem(res.getString("naziv"));
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+       
+    }
+          
+      }
+     
+    
+
