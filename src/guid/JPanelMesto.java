@@ -8,10 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sistemskeoperacije.mesto.BrisanjeMesto;
-import sistemskeoperacije.mesto.InsertovanjeMesto;
 import sistemskeoperacije.mesto.MestoService;
-import sistemskeoperacije.mesto.MestoUpdate;
+
 
 
 public class JPanelMesto extends javax.swing.JPanel {
@@ -158,7 +156,7 @@ public class JPanelMesto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnUpdateMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateMestoActionPerformed
-       MestoUpdate u = new MestoUpdate();
+      MestoService u= new MestoService();
        try{
            if(u.updatemesto(getMestoFromForm())){
                setTableDatamesto();
@@ -175,7 +173,7 @@ public class JPanelMesto extends javax.swing.JPanel {
         int rowSelected = jTable2.getSelectedRow();
         Object mestoId =jTable2.getModel().getValueAt(rowSelected, 0);
         try{
-            boolean obrisan = new BrisanjeMesto().deletemesto((int) mestoId);
+            boolean obrisan = new MestoService().deletemesto((int) mestoId);
             if(obrisan){
                 setTableDatamesto();
             }
@@ -193,7 +191,7 @@ public class JPanelMesto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable2MouseReleased
 
     private void jbtnAddMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddMestoActionPerformed
-     InsertovanjeMesto insert= new InsertovanjeMesto();
+     MestoService insert= new MestoService();
      try{
              if(insert.insermesto(getMestoFromForm())){
                  setTableDatamesto();

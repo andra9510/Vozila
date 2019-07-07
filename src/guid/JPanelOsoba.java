@@ -1,36 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package guid;
 
+package guid;
 import Domain.Mesto;
 import Domain.Osoba;
-import broker.BrokerBP;
-import java.sql.ResultSet;
+import static java.lang.Thread.sleep;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import sistemskeoperacije.mesto.MestoService;
-import sistemskeoperacije.osoba.Brisanje;
-import sistemskeoperacije.osoba.Insertovanje;
-import sistemskeoperacije.osoba.PretraziSve;
-import sistemskeoperacije.osoba.Update;
+import sistemskeoperacije.osoba.OsobaService;
 
 public class JPanelOsoba extends javax.swing.JPanel {
 
     public JPanelOsoba() {
         initComponents();
         setTableData();
-        setUpdateCombo();
+        setJcomboBoxMesto();
+        sat();               
     }
-
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,6 +42,7 @@ public class JPanelOsoba extends javax.swing.JPanel {
         jbtnClearOsobaFields = new javax.swing.JButton();
         jlblMesto = new javax.swing.JLabel();
         jcomboBoxMesto = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,6 +66,11 @@ public class JPanelOsoba extends javax.swing.JPanel {
         jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 jTable1ComponentShown(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable1KeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -140,7 +135,7 @@ public class JPanelOsoba extends javax.swing.JPanel {
                 .addComponent(jlblMesto)
                 .addGap(30, 30, 30)
                 .addComponent(jcomboBoxMesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(299, Short.MAX_VALUE))
             .addGroup(jPanelOsobaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelOsobaLayout.createSequentialGroup()
                     .addContainerGap()
@@ -228,21 +223,31 @@ public class JPanelOsoba extends javax.swing.JPanel {
                     .addContainerGap()))
         );
 
+        jLabel1.setBackground(new java.awt.Color(51, 250, 0));
+        jLabel1.setFont(new java.awt.Font("Traditional Arabic", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 51));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 74, Short.MAX_VALUE)
                 .addComponent(jPanelOsoba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 74, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 38, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelOsoba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -259,41 +264,40 @@ public class JPanelOsoba extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnClearListOsobaActionPerformed
 
     private void jbtnBrisanjeOsobeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBrisanjeOsobeActionPerformed
-        int rowSelected = jTable1.getSelectedRow();
-        Object osobaId =  jTable1.getModel().getValueAt(rowSelected, 0);
         try {
-            boolean obrisan = new Brisanje().delete((int) osobaId);
-
+            int rowSelected = jTable1.getSelectedRow();
+            Object osobaId =  jTable1.getModel().getValueAt(rowSelected, 0);
+            boolean obrisan = new OsobaService().delete(((int) osobaId));
             if (obrisan) {
                 setTableData();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(JFramelMain.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JPanelOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnBrisanjeOsobeActionPerformed
 
     private void jbtnAddOsobaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddOsobaActionPerformed
 
-        Insertovanje insertSO = new Insertovanje();
         try {
-            if(insertSO.insert(getOsobaFromForm())){
+        OsobaService os = new OsobaService();
+            if(os.Insert(getOsobaFromForm())){
                 setTableData();
                 ClearFieldsOsoba();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(JFramelMain.class.getName()).log(Level.SEVERE, null, ex);
+        }  catch (SQLException ex) {
+            Logger.getLogger(JPanelOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnAddOsobaActionPerformed
 
     private void jbtnUpdateOsobaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnUpdateOsobaActionPerformed
-        Update updateSO = new Update();
         try {
-            if(updateSO.update(getOsobaFromForm())){
+        OsobaService os = new OsobaService();
+            if(os.Update(getOsobaFromForm())){
                 setTableData();
                 //ClearFieldsOsoba();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(JFramelMain.class.getName()).log(Level.SEVERE, null, ex);
+        }  catch (SQLException ex) {
+            Logger.getLogger(JPanelOsoba.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnUpdateOsobaActionPerformed
 
@@ -306,8 +310,13 @@ public class JPanelOsoba extends javax.swing.JPanel {
    
     }//GEN-LAST:event_jcomboBoxMestoActionPerformed
 
+    private void jTable1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1KeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private java.awt.Panel jPanelOsoba;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
@@ -340,7 +349,8 @@ private void ClearFieldsOsoba(){
         osobaFromForm.setId(Integer.parseInt(txtId.getText()));
         osobaFromForm.setName(txtIme.getText());
         osobaFromForm.setPrezime(txtPrezime.getText());
-        osobaFromForm.setDatumRodjenja(Integer.parseInt(txtGodine.getText()));
+        osobaFromForm.setDatumRodjenja(Integer.parseInt(txtGodine.getText()));            
+        osobaFromForm.setMesto((Mesto)jcomboBoxMesto.getSelectedItem());       //
         return osobaFromForm;
     }
     
@@ -351,11 +361,17 @@ private void ClearFieldsOsoba(){
         txtIme.setText( jTable1.getModel().getValueAt(rowSelected, 1).toString());
         txtPrezime.setText( jTable1.getModel().getValueAt(rowSelected, 2).toString());
         txtGodine.setText( jTable1.getModel().getValueAt(rowSelected, 3).toString());
+        
+        Osoba o = ((OsobaTableModel)jTable1.getModel()).getSelectedItem(rowSelected);
+        
+        jcomboBoxMesto.getModel().setSelectedItem(o.getMesto());  //
+        jcomboBoxMesto.repaint(); //
+
     }
     private void setTableData(){
      try{
    
-          List<Osoba> listaOsoba = new PretraziSve().GetAllOsoba(); 
+          List<Osoba> listaOsoba = new OsobaService().GetAllOsoba(); 
           OsobaTableModel osobaTableModel = new OsobaTableModel(listaOsoba);     
           jTable1.setModel(osobaTableModel);
             // jTable1.setModel(DbUtils.resultSetToTableModel(listaOsoba));
@@ -365,25 +381,49 @@ private void ClearFieldsOsoba(){
         }
    
      }
-      private void setUpdateCombo(){
+      private void setJcomboBoxMesto(){
            
-        try {
-            BrokerBP.connn();
-            Statement st = BrokerBP.st;
-            List<Mesto> result = new ArrayList<Mesto>();
-            ResultSet res = st.executeQuery("select * from mesto");
-            while (res.next()) {
-               jcomboBoxMesto.addItem(res.getString("naziv"));
-            }
-            
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
+        MestoService ms = new MestoService();
+        List<Mesto>mestos= ms.GetAllMesta();
+        MestoComboBoxModel mcbm = new MestoComboBoxModel(mestos);
+        jcomboBoxMesto.setModel(mcbm);
+        
        
     }
-          
-      }
-     
+      private void sat(){
+           
+        Thread th = new Thread(){
+            public void run(){
+                try{
+                    for(;;){
+                        Calendar cl= new GregorianCalendar();
+                        
+                        int day = cl.get(Calendar.DAY_OF_MONTH);
+                        int month =cl.get(Calendar.MONTH);
+                        int year = cl.get(Calendar.YEAR);
+                        
+                        int second= cl.get(Calendar.SECOND);
+                        int min = cl.get(Calendar.MINUTE);
+                        int hour =cl.get(Calendar.HOUR);
+                        int am_pm = cl.get(Calendar.AM_PM);
+                        
+                        String d_n = "";
+                        if(am_pm == 1)
+                            d_n ="PM";
+                        else
+                            d_n = "AM";
+                        jLabel1.setText(""+hour+":"+min+":"+second+":"+d_n+" "+day+"/"+month+"/"+year+"");
+                        sleep(1000);
+                    }
+                }
+                catch(Exception ex){
+                    ex.printStackTrace();
+                    
+                }
+            }
+        };
+        th.start();
+    
+      }}
     
 

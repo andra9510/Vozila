@@ -5,6 +5,9 @@
  */
 package Domain;
 
+import java.util.Locale;
+
+
 /**
  *
  * @author Andrija
@@ -48,5 +51,23 @@ public class Mesto {
     public void setPtt(int Ptt) {
         this.Ptt = Ptt;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.getNaziv(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if (obj == null) {
+            return false;
+        }
+        if (((Mesto)obj).getMestoId() == this.getMestoId()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+     
 }

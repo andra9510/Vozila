@@ -1,43 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guid;
-
 import Domain.Mesto;
-import broker.BrokerBP;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.event.ListDataListener;
 
-/**
- *
- * @author Andrija
- */
-public class MestoComboBoxModel {
-    public List<Mesto> GetAllMesta() {
-        try {
-            BrokerBP.connn();
-            Statement st = BrokerBP.st;
-            List<Mesto> result = new ArrayList<Mesto>();
-            ResultSet res = st.executeQuery("select * from mesto");
-            while (res.next()) {
-                Mesto mesto = new Mesto();
-           
-                mesto.setNaziv(res.getString(2));
-            
-                
-                result.add(mesto);
-                
-            }
-            return result;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+public class MestoComboBoxModel implements ComboBoxModel<Mesto>{
 
-        return null;
+    private List<Mesto> lm;
+    private Mesto selectedItem;
+    private int selectedItemIndex;
+    
+    public MestoComboBoxModel(List<Mesto> lm){
+        this.lm = lm;
     }
     
+    @Override
+    public void setSelectedItem(Object anItem) {
+        //this.selectedItem = lm.get(lm.indexOf((Mesto)anItem));
+        int index = lm.indexOf((Mesto)anItem);
+        if (index > -1 ) {
+            this.selectedItem = lm.get(index);
+            this.selectedItemIndex = index;
+        }else{
+            selectedItem = null;
+            selectedItemIndex = -1;
+        }
+    }
+
+    @Override
+    public Object getSelectedItem() {
+        return selectedItem;
+    }
+
+    @Override
+    public int getSize() {
+        return lm.size();
+    }
+
+    @Override
+    public Mesto getElementAt(int index) {
+        return lm.get(index);
+    }
+
+    @Override
+    public void addListDataListener(ListDataListener l) {
+        
+    }
+
+    @Override
+    public void removeListDataListener(ListDataListener l) {
+       
+    }
+
 }

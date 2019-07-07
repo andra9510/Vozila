@@ -71,5 +71,11 @@ public class OsobaTableModel  extends AbstractTableModel {
              }
              return null;
       }
+   
+    public Osoba getSelectedItem(int index) {
+        return li.get(index);
+    }
+      
+      
  }
 
